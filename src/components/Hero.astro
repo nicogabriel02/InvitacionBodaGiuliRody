@@ -1,0 +1,76 @@
+---
+
+---
+
+<section
+    class="relative w-full h-screen flex items-center justify-center overflow-hidden"
+>
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0 bg-boda-beige">
+        <img
+            src="/IMG_0292.jpeg"
+            alt="Fondo Rody y Giuli"
+            class="w-full h-full object-cover opacity-60"
+        />
+        <!-- Gradient Overlay for readability -->
+        <div
+            class="absolute inset-0 bg-gradient-to-b from-transparent to-boda-ivory/90"
+        >
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div
+        class="relative z-10 text-center px-4 flex flex-col items-center animate-fade-in-up"
+    >
+        <p
+            class="font-sans text-sm tracking-[0.3em] uppercase text-boda-navy mb-4"
+        >
+            Nos Casamos
+        </p>
+        <h1
+            class="font-cursive text-7xl md:text-9xl text-boda-brown mb-6 drop-shadow-sm"
+        >
+            Rody & Giuli
+        </h1>
+        <div class="w-24 h-px bg-boda-navy/30 mb-8"></div>
+        <p class="font-serif italic text-xl text-boda-navy">
+            ¡Estás invitado a celebrar con nosotros!
+        </p>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div
+        class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-bounce"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8 text-boda-brown"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+</section>
+
+<style>
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .animate-fade-in-up {
+        animation: fadeInUp 1.5s ease-out forwards;
+    }
+</style>

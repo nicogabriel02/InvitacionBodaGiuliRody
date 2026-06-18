@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-boda-brown: #86614a;
+  --color-boda-navy: #4c5b7a;
+  --color-boda-blue: #a0b2cb;
+  --color-boda-ivory: #f1eae3;
+  --color-boda-beige: #e5cfbc;
+
+  --font-sans: 'Montserrat', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-cursive: 'Great Vibes', cursive;
+}
+
+body {
+  @apply font-sans bg-boda-ivory text-boda-navy;
+}
