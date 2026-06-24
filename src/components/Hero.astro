@@ -10,7 +10,7 @@
         <img
             src="/IMG_0292.jpeg"
             alt="Fondo Rody y Giuli"
-            class="w-full h-full object-cover opacity-60"
+            class="w-full h-full object-cover opacity-60 animate-hero-bg"
         />
         <!-- Gradient Overlay for readability -->
         <div
@@ -71,6 +71,14 @@
         }
     }
     .animate-fade-in-up {
-        animation: fadeInUp 1.5s ease-out forwards;
+        animation: fadeInUp 1.5s cubic-bezier(0.5, 0, 0, 1) forwards;
+    }
+    
+    @keyframes heroBgZoom {
+        0% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    .animate-hero-bg {
+        animation: heroBgZoom 4s cubic-bezier(0.2, 0, 0, 1) forwards;
     }
 </style>

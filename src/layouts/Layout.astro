@@ -23,8 +23,69 @@ const { title } = Astro.props;
         <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 		
         <title>{title}</title>
+        <style is:global>
+            /* Base reveal classes */
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+            }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            /* Delay variations */
+            .delay-100 { transition-delay: 100ms; }
+            .delay-200 { transition-delay: 200ms; }
+            .delay-300 { transition-delay: 300ms; }
+            .delay-400 { transition-delay: 400ms; }
+            .delay-500 { transition-delay: 500ms; }
+            
+            /* Scale reveal */
+            .reveal-scale {
+                opacity: 0;
+                transform: scale(0.95);
+                transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+            }
+            .reveal-scale.active {
+                opacity: 1;
+                transform: scale(1);
+            }
+            
+            /* Floating animation */
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+                100% { transform: translateY(0px); }
+            }
+            .animate-float {
+                animation: float 4s ease-in-out infinite;
+            }
+        </style>
 	</head>
 	<body class="bg-boda-ivory text-boda-navy font-sans antialiased overflow-x-hidden selection:bg-boda-brown selection:text-white">
 		<slot />
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.15
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                const revealElements = document.querySelectorAll('.reveal, .reveal-scale');
+                revealElements.forEach(el => observer.observe(el));
+            });
+        </script>
 	</body>
 </html>
