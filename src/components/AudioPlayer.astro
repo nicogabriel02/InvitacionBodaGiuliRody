@@ -1,16 +1,18 @@
 ---
 ---
 
-<div class="fixed bottom-6 right-6 z-50">
-    <button id="audio-control" class="bg-boda-brown text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-boda-navy transition-colors duration-300 animate-bounce">
-        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-    </button>
+<div class="fixed bottom-6 left-6 z-50">
+    <div class="relative">
+        <div id="audio-glow" class="absolute inset-0 bg-boda-brown rounded-full animate-ping opacity-75"></div>
+        <button id="audio-control" class="relative bg-boda-brown text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:bg-boda-navy transition-all duration-300 hover:scale-110">
+            <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+            </svg>
+            <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+            </svg>
+        </button>
+    </div>
     <audio id="bg-audio" loop>
         <source src="/perfect-ed-sheeran.mp3" type="audio/mpeg">
         Tu navegador no soporta el elemento de audio.
@@ -22,6 +24,7 @@
     const audio = document.getElementById('bg-audio') as HTMLAudioElement;
     const playIcon = document.getElementById('play-icon');
     const pauseIcon = document.getElementById('pause-icon');
+    const audioGlow = document.getElementById('audio-glow');
 
     let isPlaying = false;
 
@@ -31,12 +34,12 @@
                 audio.pause();
                 playIcon.classList.remove('hidden');
                 pauseIcon.classList.add('hidden');
-                audioControl.classList.add('animate-bounce');
+                if (audioGlow) audioGlow.classList.remove('hidden');
             } else {
                 audio.play();
                 playIcon.classList.add('hidden');
                 pauseIcon.classList.remove('hidden');
-                audioControl.classList.remove('animate-bounce');
+                if (audioGlow) audioGlow.classList.add('hidden');
             }
             isPlaying = !isPlaying;
         });

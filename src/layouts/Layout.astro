@@ -61,10 +61,38 @@ const { title } = Astro.props;
             .animate-float {
                 animation: float 4s ease-in-out infinite;
             }
+            
+            /* Custom Scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #f1eae3; 
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #86614a; 
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #4c5b7a; 
+            }
         </style>
 	</head>
 	<body class="bg-boda-ivory text-boda-navy font-sans antialiased overflow-x-hidden selection:bg-boda-brown selection:text-white">
+        <!-- Preloader -->
+        <div id="preloader" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-boda-ivory transition-opacity duration-1000">
+            <h2 class="font-cursive text-7xl text-boda-brown animate-pulse">G & R</h2>
+            <div class="w-16 h-px bg-boda-navy/30 mt-4"></div>
+        </div>
+
 		<slot />
+
+        <!-- Back to Top Button -->
+        <button id="backToTop" class="fixed bottom-6 right-6 z-40 bg-boda-brown text-white p-3 rounded-full shadow-xl opacity-0 translate-y-10 transition-all duration-500 hover:bg-boda-navy pointer-events-none hover:scale-110" aria-label="Volver arriba">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+        </button>
         
         <script>
             document.addEventListener('DOMContentLoaded', () => {
@@ -85,6 +113,54 @@ const { title } = Astro.props;
 
                 const revealElements = document.querySelectorAll('.reveal, .reveal-scale');
                 revealElements.forEach(el => observer.observe(el));
+                
+                // Back to top logic
+                const backToTop = document.getElementById('backToTop');
+                if (backToTop) {
+                    window.addEventListener('scroll', () => {
+                        if (window.scrollY > 500) {
+                            backToTop.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                        } else {
+                            backToTop.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                        }
+                    });
+                    backToTop.addEventListener('click', () => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+            });
+            
+            // Preloader logic
+            window.addEventListener('load', () => {
+                const preloader = document.getElementById('preloader');
+                if (preloader) {
+                    setTimeout(() => {
+                        preloader.classList.add('opacity-0');
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                        }, 1000);
+                    }, 500); // short delay to show the beautiful initials
+                }
+            });
+            // Magnetic buttons logic
+            const magneticButtons = document.querySelectorAll('.btn-magnetic');
+            magneticButtons.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = (e.clientX - rect.left - rect.width / 2);
+                    const y = (e.clientY - rect.top - rect.height / 2);
+                    
+                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0px, 0px)';
+                    btn.style.transition = 'transform 0.5s ease';
+                });
+                
+                btn.addEventListener('mouseenter', () => {
+                    btn.style.transition = 'none';
+                });
             });
         </script>
 	</body>
