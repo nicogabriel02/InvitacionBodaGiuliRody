@@ -94,10 +94,5 @@ const images = [
         }, observerOptions);
 
         items.forEach(item => observer.observe(item));
-        
-        // Initial check for first item
-        setTimeout(() => {
-            items[0]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        }, 500);
     }
 </script>
