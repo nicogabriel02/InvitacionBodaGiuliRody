@@ -1,0 +1,406 @@
+---
+import giftsData from '../data/gifts.json';
+---
+
+<div class="w-full max-w-5xl mx-auto px-4 py-8">
+    <!-- Header & Description -->
+    <div class="text-center mb-10 reveal">
+        <p class="font-sans text-boda-navy/80 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
+            “Lo más importante para nosotros es compartir este día con vos.
+            Si querés hacernos un regalo para nuestro hogar, podés elegir algo de nuestra lista a continuación o colaborar mediante una transferencia. ¡Gracias por acompañarnos!” ✨
+        </p>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 reveal delay-100">
+        <!-- Search Bar -->
+        <div class="relative w-full md:w-72">
+            <input 
+                type="text" 
+                id="giftSearch" 
+                placeholder="Buscar regalo..." 
+                class="w-full pl-10 pr-4 py-2.5 rounded-full bg-white/90 border border-boda-brown/20 focus:outline-none focus:border-boda-brown text-sm font-sans placeholder:text-boda-navy/40 shadow-sm transition-all"
+            />
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute left-3.5 top-3.5 text-boda-brown/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap justify-center gap-2 text-xs font-sans">
+            <button class="filter-btn active px-4 py-2 rounded-full border border-boda-brown text-boda-brown hover:bg-boda-brown hover:text-white transition-all shadow-sm font-medium" data-filter="all">Todos</button>
+            <button class="filter-btn px-4 py-2 rounded-full border border-boda-brown/30 text-boda-navy hover:border-boda-brown hover:text-boda-brown transition-all shadow-sm font-medium" data-filter="available">Disponibles</button>
+            <button class="filter-btn px-4 py-2 rounded-full border border-boda-brown/30 text-boda-navy hover:border-boda-brown hover:text-boda-brown transition-all shadow-sm font-medium" data-filter="reserved">Reservados</button>
+            <button class="filter-btn px-4 py-2 rounded-full border border-boda-brown/30 text-boda-navy hover:border-boda-brown hover:text-boda-brown transition-all shadow-sm font-medium" data-filter="under50">Menos de $50k</button>
+            <button class="filter-btn px-4 py-2 rounded-full border border-boda-brown/30 text-boda-navy hover:border-boda-brown hover:text-boda-brown transition-all shadow-sm font-medium" data-filter="over50">Más de $50k</button>
+        </div>
+    </div>
+
+    <!-- Gifts Grid -->
+    <div id="giftsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal delay-200">
+        {giftsData.map((gift) => (
+            <div 
+                class="gift-card bg-white rounded-2xl overflow-hidden shadow-md border border-boda-brown/10 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                data-id={gift.id}
+                data-price={gift.price}
+                data-title={gift.title.toLowerCase()}
+            >
+                <!-- Image Container -->
+                <div class="relative aspect-square bg-boda-beige/20 p-4 flex items-center justify-center overflow-hidden group">
+                    <img 
+                        src={gift.image} 
+                        alt={gift.title} 
+                        class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                    />
+                    <!-- Status Badge -->
+                    <span class="status-badge absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-medium tracking-wide shadow-sm bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        Disponible
+                    </span>
+                </div>
+
+                <!-- Content -->
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-serif text-lg text-boda-navy line-clamp-2 mb-2 font-medium" title={gift.title}>
+                            {gift.title}
+                        </h4>
+                        <p class="font-sans text-xl font-bold text-boda-brown mb-4">
+                            {gift.formattedPrice}
+                        </p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="pt-3 border-t border-boda-brown/10 flex flex-col gap-2">
+                        <button 
+                            class="reserve-btn btn-magnetic w-full py-3 bg-boda-brown text-white rounded-xl font-sans text-xs font-semibold tracking-widest uppercase hover:bg-boda-navy transition-colors shadow-sm flex items-center justify-center gap-2"
+                            data-id={gift.id}
+                            data-title={gift.title}
+                            data-price={gift.formattedPrice}
+                            data-rawprice={gift.price}
+                            data-image={gift.image}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                            </svg>
+                            Regalar este Producto
+                        </button>
+                        <a 
+                            href={gift.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            class="text-center text-[11px] font-sans text-boda-navy/60 hover:text-boda-brown transition-colors py-1"
+                        >
+                            Ver en MercadoLibre ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        ))}
+    </div>
+
+    <!-- Empty State -->
+    <div id="noResults" class="hidden text-center py-16">
+        <p class="font-serif text-2xl text-boda-brown mb-2">No encontramos regalos</p>
+        <p class="font-sans text-sm text-boda-navy/60">Probá buscando con otras palabras o cambiando los filtros.</p>
+    </div>
+</div>
+
+<!-- Modal de Reserva -->
+<div id="giftModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto border border-boda-brown/20">
+        <!-- Close Button -->
+        <button id="closeModal" class="absolute top-5 right-5 text-boda-navy/50 hover:text-boda-navy p-2 rounded-full hover:bg-boda-beige/40 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <!-- Step 1: Form -->
+        <div id="modalStep1">
+            <div class="flex items-center gap-4 mb-6">
+                <img id="modalGiftImage" src="" alt="Gift" class="w-20 h-20 object-contain rounded-xl bg-boda-beige/30 p-2 border border-boda-brown/10 shrink-0" />
+                <div>
+                    <h3 id="modalGiftTitle" class="font-serif text-lg text-boda-navy line-clamp-2 leading-tight"></h3>
+                    <p id="modalGiftPrice" class="font-sans text-xl font-bold text-boda-brown mt-1"></p>
+                </div>
+            </div>
+
+            <form id="reserveForm" class="space-y-4">
+                <div>
+                    <label class="block font-sans text-xs font-semibold text-boda-navy uppercase tracking-wider mb-1">Tu Nombre y Apellido *</label>
+                    <input 
+                        type="text" 
+                        id="guestName" 
+                        required 
+                        placeholder="Ej: María García" 
+                        class="w-full px-4 py-3 rounded-xl bg-boda-beige/20 border border-boda-brown/20 focus:outline-none focus:border-boda-brown text-sm font-sans text-boda-navy"
+                    />
+                </div>
+
+                <div>
+                    <label class="block font-sans text-xs font-semibold text-boda-navy uppercase tracking-wider mb-1">Mensaje para Giuli y Rody (Opcional)</label>
+                    <textarea 
+                        id="guestMessage" 
+                        rows="2" 
+                        placeholder="¡Felicitaciones! Les deseamos lo mejor en esta nueva etapa..." 
+                        class="w-full px-4 py-3 rounded-xl bg-boda-beige/20 border border-boda-brown/20 focus:outline-none focus:border-boda-brown text-sm font-sans text-boda-navy"
+                    ></textarea>
+                </div>
+
+                <div class="pt-2">
+                    <button 
+                        type="submit" 
+                        class="w-full py-4 bg-boda-brown text-white rounded-full font-sans text-xs font-bold tracking-widest uppercase hover:bg-boda-navy transition-colors shadow-lg"
+                    >
+                        Confirmar Reserva del Regalo
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Step 2: Payment & WhatsApp confirmation -->
+        <div id="modalStep2" class="hidden text-center space-y-6">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+
+            <div>
+                <h3 class="font-serif text-2xl text-boda-brown mb-2">¡Muchas gracias, <span id="confirmedName"></span>!</h3>
+                <p class="font-sans text-sm text-boda-navy/80">
+                    Tu regalo <strong id="confirmedGift" class="text-boda-navy"></strong> fue reservado con éxito.
+                </p>
+            </div>
+
+            <!-- Bank Info Card -->
+            <div class="bg-boda-beige/30 p-5 rounded-2xl text-left border border-boda-brown/20 space-y-2 font-sans text-xs text-boda-navy">
+                <p class="font-bold text-boda-brown text-sm mb-2 text-center uppercase tracking-wider">Datos para Transferir</p>
+                <p><strong>Titular:</strong> Giulieta Ariana Ciuffardi Lemos</p>
+                <p class="flex items-center justify-between">
+                    <span><strong>Alias:</strong> <code class="font-mono bg-white px-2 py-0.5 rounded text-boda-brown">casamiento.giu.ro</code></span>
+                    <button type="button" class="copy-modal-alias text-boda-brown underline font-semibold text-[11px]">Copiar</button>
+                </p>
+                <p class="flex items-center justify-between">
+                    <span><strong>CBU:</strong> <code class="font-mono text-[11px] bg-white px-1.5 py-0.5 rounded">1430001713042921950019</code></span>
+                    <button type="button" class="copy-modal-cbu text-boda-brown underline font-semibold text-[11px]">Copiar</button>
+                </p>
+                <p><strong>Monto:</strong> <span id="confirmedPrice" class="font-bold text-boda-brown"></span></p>
+            </div>
+
+            <!-- WhatsApp Link -->
+            <div>
+                <a 
+                    id="whatsappLink" 
+                    href="#" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="inline-flex items-center justify-center gap-2 w-full py-4 bg-emerald-600 text-white rounded-full font-sans text-xs font-bold tracking-widest uppercase hover:bg-emerald-700 transition-colors shadow-lg"
+                >
+                    <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                    Enviar Comprobante por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // State management using localStorage
+    const RESERVATIONS_KEY = 'boda_giuli_rody_gifts_reservations';
+    
+    function getReservations() {
+        try {
+            return JSON.parse(localStorage.getItem(RESERVATIONS_KEY) || '{}');
+        } catch {
+            return {};
+        }
+    }
+
+    function saveReservation(id, name, message) {
+        const current = getReservations();
+        current[id] = { name, message, timestamp: Date.now() };
+        localStorage.setItem(RESERVATIONS_KEY, JSON.stringify(current));
+    }
+
+    // UI Updates based on reservations
+    function updateUIState() {
+        const reservations = getReservations();
+        document.querySelectorAll('.gift-card').forEach(card => {
+            const id = card.getAttribute('data-id');
+            const badge = card.querySelector('.status-badge');
+            const btn = card.querySelector('.reserve-btn');
+
+            if (reservations[id]) {
+                const res = reservations[id];
+                card.classList.add('bg-boda-beige/10', 'border-boda-brown/30');
+                if (badge) {
+                    badge.textContent = `Reservado por ${res.name.split(' ')[0]}`;
+                    badge.className = 'status-badge absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-medium tracking-wide shadow-sm bg-amber-100 text-amber-800 border border-amber-300';
+                }
+                if (btn) {
+                    btn.textContent = 'RESERVADO';
+                    btn.disabled = true;
+                    btn.className = 'w-full py-3 bg-boda-navy/20 text-boda-navy/50 rounded-xl font-sans text-xs font-semibold tracking-widest uppercase cursor-not-allowed flex items-center justify-center gap-2';
+                }
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateUIState();
+
+        // Search & Filter Logic
+        const searchInput = document.getElementById('giftSearch');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.gift-card');
+        const noResults = document.getElementById('noResults');
+
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        function applyFilters() {
+            let visibleCount = 0;
+            const reservations = getReservations();
+
+            cards.forEach(card => {
+                const id = card.getAttribute('data-id');
+                const price = parseFloat(card.getAttribute('data-price') || '0');
+                const title = card.getAttribute('data-title') || '';
+                const isReserved = !!reservations[id];
+
+                let matchesFilter = true;
+                if (currentFilter === 'available') matchesFilter = !isReserved;
+                else if (currentFilter === 'reserved') matchesFilter = isReserved;
+                else if (currentFilter === 'under50') matchesFilter = price < 50000;
+                else if (currentFilter === 'over50') matchesFilter = price >= 50000;
+
+                let matchesSearch = !searchQuery || title.includes(searchQuery);
+
+                if (matchesFilter && matchesSearch) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            if (noResults) {
+                if (visibleCount === 0) noResults.classList.remove('hidden');
+                else noResults.classList.add('hidden');
+            }
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = (e.target.value || '').toLowerCase().trim();
+                applyFilters();
+            });
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-boda-brown', 'text-white');
+                    b.classList.add('text-boda-navy', 'border-boda-brown/30');
+                });
+                btn.classList.add('bg-boda-brown', 'text-white');
+                btn.classList.remove('text-boda-navy', 'border-boda-brown/30');
+
+                currentFilter = btn.getAttribute('data-filter') || 'all';
+                applyFilters();
+            });
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('giftModal');
+        const closeModal = document.getElementById('closeModal');
+        const reserveForm = document.getElementById('reserveForm');
+        
+        let currentGift = null;
+
+        document.querySelectorAll('.reserve-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.disabled) return;
+                
+                const id = btn.getAttribute('data-id');
+                const title = btn.getAttribute('data-title');
+                const price = btn.getAttribute('data-price');
+                const rawPrice = btn.getAttribute('data-rawprice');
+                const image = btn.getAttribute('data-image');
+
+                currentGift = { id, title, price, rawPrice, image };
+
+                // Populate modal
+                document.getElementById('modalGiftImage').src = image;
+                document.getElementById('modalGiftTitle').textContent = title;
+                document.getElementById('modalGiftPrice').textContent = price;
+
+                // Reset modal to step 1
+                document.getElementById('modalStep1').classList.remove('hidden');
+                document.getElementById('modalStep2').classList.add('hidden');
+
+                // Open modal
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.firstElementChild?.classList.remove('scale-95');
+                modal.firstElementChild?.classList.add('scale-100');
+            });
+        });
+
+        function hideModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.firstElementChild?.classList.remove('scale-100');
+            modal.firstElementChild?.classList.add('scale-95');
+        }
+
+        if (closeModal) closeModal.addEventListener('click', hideModal);
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) hideModal();
+            });
+        }
+
+        // Reserve Form Submit
+        if (reserveForm) {
+            reserveForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = (document.getElementById('guestName').value || '').trim();
+                const message = (document.getElementById('guestMessage').value || '').trim();
+
+                if (!name || !currentGift) return;
+
+                // Save to state
+                saveReservation(currentGift.id, name, message);
+                updateUIState();
+                applyFilters();
+
+                // Show step 2
+                document.getElementById('confirmedName').textContent = name;
+                document.getElementById('confirmedGift').textContent = currentGift.title;
+                document.getElementById('confirmedPrice').textContent = currentGift.price;
+
+                // Configure WhatsApp link
+                const text = encodeURIComponent(
+                    `¡Hola Giuli y Rody! Mi nombre es ${name}. Acabo de reservar el regalo "${currentGift.title}" (${currentGift.price}) para su boda. ¡Acá les envío el comprobante de transferencia! ✨`
+                );
+                document.getElementById('whatsappLink').href = `https://wa.me/5493434159643?text=${text}`;
+
+                document.getElementById('modalStep1').classList.add('hidden');
+                document.getElementById('modalStep2').classList.remove('hidden');
+            });
+        }
+
+        // Copy buttons in modal
+        document.querySelector('.copy-modal-alias')?.addEventListener('click', () => {
+            navigator.clipboard.writeText('casamiento.giu.ro');
+            alert('¡Alias copiado!');
+        });
+        document.querySelector('.copy-modal-cbu')?.addEventListener('click', () => {
+            navigator.clipboard.writeText('1430001713042921950019');
+            alert('¡CBU copiado!');
+        });
+    });
+</script>
