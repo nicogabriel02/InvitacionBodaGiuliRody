@@ -162,6 +162,11 @@ import GiftsList from './GiftsList.astro';
                     giftsContainer.classList.remove('opacity-0', 'translate-y-4');
                     giftsContainer.classList.add('opacity-100', 'translate-y-0');
                     toggleBtn.textContent = 'OCULTAR REGALOS';
+                    
+                    // Hacer scroll suave hacia los regalos
+                    setTimeout(() => {
+                        giftsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
                 });
             } else {
                 giftsContainer.classList.remove('opacity-100', 'translate-y-0');

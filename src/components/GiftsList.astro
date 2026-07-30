@@ -9,7 +9,7 @@
     </div>
 
     <!-- Header & Description -->
-    <div class="text-center mb-10 reveal">
+    <div class="text-center mb-10">
         <p class="font-sans text-boda-navy/80 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
             “Lo más importante para nosotros es compartir este día con vos.
             Si querés hacernos un regalo para nuestro hogar, podés elegir algo de nuestra lista a continuación o colaborar con un aporte parcial. ¡Gracias por acompañarnos!” ✨
@@ -17,7 +17,7 @@
     </div>
 
     <!-- Search & Filter Controls -->
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 reveal delay-100">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
         <div class="relative w-full md:w-72">
             <input 
                 type="text" 
@@ -38,7 +38,7 @@
     </div>
 
     <!-- Gifts Grid (Rendered by JS) -->
-    <div id="giftsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal delay-200">
+    <div id="giftsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Tarjetas generadas dinámicamente -->
     </div>
 
@@ -368,6 +368,12 @@
 
     // Modal & Interactions
     const modal = document.getElementById('giftModal');
+    
+    // Move modal to body to prevent transform parent issues (stacking context)
+    if (modal && modal.parentElement !== document.body) {
+        document.body.appendChild(modal);
+    }
+    
     const closeModalBtn = document.getElementById('closeModal');
     const form = document.getElementById('contributionForm');
     const amountInput = document.getElementById('contributionAmount');
