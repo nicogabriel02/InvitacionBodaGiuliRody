@@ -75,17 +75,20 @@ import GiftsList from './GiftsList.astro';
                     </div>
 
                     <!-- Dorso de la tarjeta -->
-                    <div class="absolute inset-0 backface-hidden bg-white border border-boda-brown/20 rounded-xl p-6 text-left space-y-3 font-sans text-boda-navy rotate-y-180 flex flex-col justify-center">
-                        <p><strong>Titular:</strong> Giulieta Ariana Ciuffardi Lemos</p>
-                        <p>
-                            <strong>Alias:</strong>
-                            <span class="font-mono bg-boda-beige/50 px-2 py-1 rounded cursor-pointer copy-text hover:bg-boda-beige transition-colors relative z-10" data-copy="casamiento.giu.ro" title="Click para copiar">casamiento.giu.ro</span>
-                        </p>
-                        <p>
-                            <strong>CBU:</strong>
-                            <span class="font-mono text-sm cursor-pointer copy-text bg-boda-beige/50 px-2 py-1 rounded hover:bg-boda-beige transition-colors relative z-10" data-copy="1430001713042921950019" title="Click para copiar">1430001713042921950019</span>
-                        </p>
-                        <p><strong>CUIL:</strong> 27-44977799-4</p>
+                    <div class="absolute inset-0 backface-hidden bg-white border border-boda-brown/20 rounded-xl p-6 text-left space-y-2 font-sans text-boda-navy rotate-y-180 flex flex-col justify-center">
+                        <p class="text-sm"><strong>Titular:</strong> Giulieta Ariana Ciuffardi Lemos</p>
+                        
+                        <div class="flex items-center justify-between bg-boda-beige/30 p-2 rounded-lg border border-boda-brown/10 relative z-10">
+                            <span class="text-sm"><strong>Alias:</strong> <code class="font-mono bg-white px-1.5 py-0.5 rounded text-boda-brown">casamiento.giu.ro</code></span>
+                            <button type="button" class="copy-text text-boda-brown hover:text-boda-navy font-semibold text-[10px] uppercase tracking-wide bg-white px-2 py-1 rounded shadow-sm border border-boda-brown/10 transition-colors" data-copy="casamiento.giu.ro">Copiar</button>
+                        </div>
+
+                        <div class="flex items-center justify-between bg-boda-beige/30 p-2 rounded-lg border border-boda-brown/10 relative z-10">
+                            <span class="text-sm"><strong>CBU:</strong> <code class="font-mono text-[10px] sm:text-[11px] bg-white px-1.5 py-0.5 rounded text-boda-brown">1430001713042921950019</code></span>
+                            <button type="button" class="copy-text text-boda-brown hover:text-boda-navy font-semibold text-[10px] uppercase tracking-wide bg-white px-2 py-1 rounded shadow-sm border border-boda-brown/10 transition-colors" data-copy="1430001713042921950019">Copiar</button>
+                        </div>
+
+                        <p class="text-sm pt-1"><strong>CUIL:</strong> 27-44977799-4</p>
                     </div>
 
                 </div>
