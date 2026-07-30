@@ -106,7 +106,20 @@ import GiftsList from './GiftsList.astro';
                 ></path>
             </svg>
             <h3 class="font-serif text-3xl text-boda-navy mb-4">Lista de Regalos</h3>
-            <GiftsList />
+            <p class="font-sans text-boda-navy mb-8 text-sm max-w-md mx-auto">
+                Lo más importante para nosotros es compartir este día con vos. Si querés hacernos un regalo, podés ver nuestra lista haciendo clic abajo.
+            </p>
+            <button
+                id="toggleGiftsBtn"
+                class="btn-magnetic inline-block px-10 py-4 bg-boda-brown text-white rounded-full font-sans text-sm tracking-widest hover:bg-boda-navy transition-colors shadow-md"
+            >
+                VER REGALOS
+            </button>
+
+            <!-- Contenedor oculto de regalos -->
+            <div id="giftsContainer" class="hidden mt-10 transition-all duration-500 opacity-0 transform translate-y-4">
+                <GiftsList />
+            </div>
         </div>
 
         <!-- Asistencia -->
@@ -135,6 +148,32 @@ import GiftsList from './GiftsList.astro';
 </section>
 
 <script>
+    // Toggle Gifts
+    const toggleBtn = document.getElementById('toggleGiftsBtn');
+    const giftsContainer = document.getElementById('giftsContainer');
+    
+    if (toggleBtn && giftsContainer) {
+        toggleBtn.addEventListener('click', () => {
+            const isHidden = giftsContainer.classList.contains('hidden');
+            if (isHidden) {
+                giftsContainer.classList.remove('hidden');
+                // Allow display block to apply before animating opacity/transform
+                requestAnimationFrame(() => {
+                    giftsContainer.classList.remove('opacity-0', 'translate-y-4');
+                    giftsContainer.classList.add('opacity-100', 'translate-y-0');
+                    toggleBtn.textContent = 'OCULTAR REGALOS';
+                });
+            } else {
+                giftsContainer.classList.remove('opacity-100', 'translate-y-0');
+                giftsContainer.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => {
+                    giftsContainer.classList.add('hidden');
+                    toggleBtn.textContent = 'VER REGALOS';
+                }, 500); // match duration-500
+            }
+        });
+    }
+
     // Copy to clipboard logic
     const copyElements = document.querySelectorAll('.copy-text');
     const toast = document.getElementById('toast');

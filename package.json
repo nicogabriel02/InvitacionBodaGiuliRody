@@ -12,8 +12,11 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.111.0",
     "@tailwindcss/vite": "^4.3.1",
     "astro": "^6.4.7",
+    "cheerio": "^1.2.0",
+    "dotenv": "^17.4.2",
     "tailwindcss": "^4.3.1"
   }
 }

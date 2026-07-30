@@ -1,0 +1,30 @@
+name: Sincronizar Precios Diariamente
+
+on:
+  schedule:
+    # Corre todos los días a las 03:00 UTC (12:00 AM de Argentina)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Permite ejecutarlo manualmente desde GitHub
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm ci || npm install
+
+      - name: Ejecutar script de actualización
+        env:
+          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+          # Usamos la Service Role Key para poder actualizar (saltar RLS)
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/fetch-prices.js
