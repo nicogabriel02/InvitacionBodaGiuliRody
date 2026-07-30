@@ -1,0 +1,93 @@
+---
+// ScrollSpy.astro
+const sections = [
+  { id: 'inicio', title: 'Inicio' },
+  { id: 'cuenta-regresiva', title: 'Cuenta Regresiva' },
+  { id: 'detalles', title: 'Detalles' },
+  { id: 'galeria', title: 'Galería' },
+  { id: 'asistencia', title: 'Asistencia y Regalos' }
+];
+---
+
+<nav class="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 hidden md:flex" id="scrollspy">
+  {sections.map((section) => (
+    <a 
+      href={`#${section.id}`} 
+      class="scrollspy-link group relative flex items-center justify-end"
+      aria-label={section.title}
+      data-target={section.id}
+    >
+      <span class="absolute right-8 bg-boda-navy text-white text-[10px] uppercase tracking-wider py-1 px-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+        {section.title}
+      </span>
+      <div class="w-2.5 h-2.5 rounded-full bg-boda-brown/40 border border-transparent transition-all duration-300 group-hover:scale-150 group-hover:bg-boda-brown dot-indicator"></div>
+    </a>
+  ))}
+</nav>
+
+<!-- Para celular podemos hacerlo más sutil o mantenerlo si entra bien -->
+<nav class="fixed right-2 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 md:hidden" id="scrollspy-mobile">
+  {sections.map((section) => (
+    <a 
+      href={`#${section.id}`} 
+      class="scrollspy-link w-3 h-3 flex items-center justify-center"
+      aria-label={section.title}
+      data-target={section.id}
+    >
+      <div class="w-1.5 h-1.5 rounded-full bg-boda-brown/30 transition-all duration-300 dot-indicator"></div>
+    </a>
+  ))}
+</nav>
+
+<style>
+  /* Clases activas */
+  .scrollspy-link.active .dot-indicator {
+    background-color: var(--color-boda-brown, #8B7355);
+    transform: scale(1.5);
+  }
+  .scrollspy-link.active-mobile .dot-indicator {
+    background-color: var(--color-boda-brown, #8B7355);
+    transform: scale(1.8);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('.scrollspy-link');
+    const sections = Array.from(links).map(link => document.getElementById(link.dataset.target)).filter(Boolean);
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          links.forEach(link => {
+            if (link.dataset.target === id) {
+              if (link.closest('#scrollspy')) link.classList.add('active');
+              if (link.closest('#scrollspy-mobile')) link.classList.add('active-mobile');
+            } else {
+              link.classList.remove('active', 'active-mobile');
+            }
+          });
+        }
+      });
+    }, {
+      rootMargin: '-30% 0px -50% 0px' // Se activa cuando la sección está en el medio de la pantalla
+    });
+
+    sections.forEach(sec => observer.observe(sec));
+
+    // Scroll suave al hacer click
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.dataset.target;
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  });
+</script>

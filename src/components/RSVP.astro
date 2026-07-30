@@ -2,7 +2,7 @@
 import GiftsList from './GiftsList.astro';
 ---
 
-<section class="py-24 bg-boda-beige/30 text-center">
+<section id="asistencia" class="py-24 bg-boda-beige/30 text-center">
     <div class="container mx-auto px-4 max-w-3xl">
         <!-- Dress Code -->
         <div class="mb-20 reveal">
@@ -62,31 +62,40 @@ import GiftsList from './GiftsList.astro';
                 Válido hasta el 14 de noviembre.<br/>
                 Luego hasta el 31 de enero, el valor será de ARS $105.000 por persona.
             </p>
-            <p class="font-sans text-boda-navy mb-6 text-sm font-medium">
-                Una vez realizado el pago, te pedimos que nos envíes el comprobante a nuestro WhatsApp para poder confirmar tu asistencia.
-            </p>
+            <div class="perspective-1000 mx-auto max-w-md mb-8 group" id="bankCardContainer">
+                <div class="relative w-full transition-transform duration-700 transform-style-3d shadow-sm rounded-xl cursor-pointer" id="bankCardInner" style="min-height: 250px;">
+                    
+                    <!-- Frente de la tarjeta -->
+                    <div class="absolute inset-0 backface-hidden bg-white/90 border border-boda-brown/20 rounded-xl flex flex-col items-center justify-center p-6 text-center hover:bg-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-boda-brown mb-4 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                        </svg>
+                        <h4 class="font-serif text-2xl text-boda-navy mb-2">Datos Bancarios</h4>
+                        <p class="font-sans text-boda-navy/70 text-sm">Tocar para girar y ver los datos</p>
+                    </div>
 
-            <div
-                class="bg-white/80 p-6 rounded-xl text-left max-w-md mx-auto shadow-sm border border-boda-brown/20 space-y-3 font-sans text-boda-navy mb-8"
-            >
-                <p><strong>Titular:</strong> Giulieta Ariana Ciuffardi Lemos</p>
-                <p>
-                    <strong>Alias:</strong>
-                    <span class="font-mono bg-boda-beige/50 px-2 py-1 rounded cursor-pointer copy-text hover:bg-boda-beige transition-colors" data-copy="casamiento.giu.ro" title="Click para copiar"
-                        >casamiento.giu.ro</span
-                    >
-                </p>
-                <p>
-                    <strong>CBU:</strong>
-                    <span class="font-mono text-sm cursor-pointer copy-text bg-boda-beige/50 px-2 py-1 rounded hover:bg-boda-beige transition-colors" data-copy="1430001713042921950019" title="Click para copiar">1430001713042921950019</span
-                    >
-                </p>
-                <p><strong>CUIL:</strong> 27-44977799-4</p>
-                <p class="pt-2"><strong>WhatsApp:</strong><br/>
-                    <a href="https://wa.me/5493434159643" target="_blank" class="text-boda-brown hover:underline hover:text-boda-navy transition-colors">+5493434159643 (Giuli)</a><br/>
-                    <a href="https://wa.me/543813333233" target="_blank" class="text-boda-brown hover:underline hover:text-boda-navy transition-colors">+543813333233 (Rody)</a>
-                </p>
+                    <!-- Dorso de la tarjeta -->
+                    <div class="absolute inset-0 backface-hidden bg-white border border-boda-brown/20 rounded-xl p-6 text-left space-y-3 font-sans text-boda-navy rotate-y-180 flex flex-col justify-center">
+                        <p><strong>Titular:</strong> Giulieta Ariana Ciuffardi Lemos</p>
+                        <p>
+                            <strong>Alias:</strong>
+                            <span class="font-mono bg-boda-beige/50 px-2 py-1 rounded cursor-pointer copy-text hover:bg-boda-beige transition-colors relative z-10" data-copy="casamiento.giu.ro" title="Click para copiar">casamiento.giu.ro</span>
+                        </p>
+                        <p>
+                            <strong>CBU:</strong>
+                            <span class="font-mono text-sm cursor-pointer copy-text bg-boda-beige/50 px-2 py-1 rounded hover:bg-boda-beige transition-colors relative z-10" data-copy="1430001713042921950019" title="Click para copiar">1430001713042921950019</span>
+                        </p>
+                        <p><strong>CUIL:</strong> 27-44977799-4</p>
+                    </div>
+
+                </div>
             </div>
+            
+            <p class="font-sans text-boda-navy mb-8 text-sm font-medium">
+                Una vez realizado el pago, te pedimos que nos envíes el comprobante a nuestro WhatsApp para poder confirmar tu asistencia.<br/><br/>
+                <a href="https://wa.me/5493434159643" target="_blank" class="text-boda-brown hover:underline hover:text-boda-navy transition-colors inline-block relative z-10">+5493434159643 (Giuli)</a><br/>
+                <a href="https://wa.me/543813333233" target="_blank" class="text-boda-brown hover:underline hover:text-boda-navy transition-colors inline-block relative z-10 mt-1">+543813333233 (Rody)</a>
+            </p>
         </div>
 
         <!-- Regalos -->
@@ -147,6 +156,25 @@ import GiftsList from './GiftsList.astro';
     </div>
 </section>
 
+<style>
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+    .transform-style-3d {
+        transform-style: preserve-3d;
+    }
+    .backface-hidden {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+        transform: rotateY(180deg);
+    }
+    .is-flipped {
+        transform: rotateY(180deg);
+    }
+</style>
+
 <script>
     // Toggle Gifts
     const toggleBtn = document.getElementById('toggleGiftsBtn');
@@ -176,6 +204,20 @@ import GiftsList from './GiftsList.astro';
                     toggleBtn.textContent = 'VER REGALOS';
                 }, 500); // match duration-500
             }
+        });
+    }
+
+    // Lógica de la Tarjeta Interactiva (Flip)
+    const bankCardContainer = document.getElementById('bankCardContainer');
+    const bankCardInner = document.getElementById('bankCardInner');
+    
+    if (bankCardContainer && bankCardInner) {
+        bankCardContainer.addEventListener('click', (e) => {
+            // Evitamos que se voltee si se hizo click en un botón/enlace o para copiar texto
+            if (e.target.closest('.copy-text') || e.target.closest('a')) {
+                return;
+            }
+            bankCardInner.classList.toggle('is-flipped');
         });
     }
 

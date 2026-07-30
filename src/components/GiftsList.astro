@@ -300,55 +300,59 @@
             visibleCount++;
 
             const card = document.createElement('div');
-            card.className = `gift-card bg-white rounded-2xl overflow-hidden shadow-md border flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${isCompleted ? 'border-emerald-200 bg-emerald-50/30' : 'border-boda-brown/10'}`;
+            // Modificamos a flex-row en celular (lista horizontal) y flex-col en pantallas grandes
+            card.className = `gift-card bg-white rounded-2xl overflow-hidden shadow-md border flex flex-row sm:flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${isCompleted ? 'border-emerald-200 bg-emerald-50/30' : 'border-boda-brown/10'}`;
             
             // Status badge logic
             let badgeHtml = '';
             if (isCompleted) {
-                badgeHtml = `<span class="absolute top-3 right-3 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase shadow-sm bg-emerald-100 text-emerald-800 border border-emerald-200 backdrop-blur-sm">Completado</span>`;
+                badgeHtml = `<span class="absolute top-2 right-2 sm:top-3 sm:right-3 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-bold tracking-wider uppercase shadow-sm bg-emerald-100 text-emerald-800 border border-emerald-200 backdrop-blur-sm">Ok</span>`;
             } else if (percentage > 0) {
-                badgeHtml = `<span class="absolute top-3 right-3 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase shadow-sm bg-amber-100 text-amber-800 border border-amber-200 backdrop-blur-sm">${percentage}% Financiado</span>`;
+                badgeHtml = `<span class="absolute top-2 right-2 sm:top-3 sm:right-3 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-bold tracking-wider uppercase shadow-sm bg-amber-100 text-amber-800 border border-amber-200 backdrop-blur-sm">${percentage}%</span>`;
             }
 
             card.innerHTML = `
-                <div class="relative aspect-square bg-white flex items-center justify-center p-6 border-b border-boda-brown/5 group">
-                    <img src="${gift.image}" alt="${gift.title}" class="w-full h-full object-contain transition-transform duration-500 ${isCompleted ? 'opacity-50 grayscale' : 'group-hover:scale-105'}" loading="lazy" />
+                <!-- Imagen (fija a la izquierda en celular, arriba en compu) -->
+                <div class="relative w-[110px] sm:w-full shrink-0 sm:aspect-square bg-white flex items-center justify-center p-3 sm:p-6 border-r sm:border-r-0 sm:border-b border-boda-brown/5 group">
+                    <img src="${gift.image}" alt="${gift.title}" class="w-full h-full object-contain transition-transform duration-500 ${isCompleted ? 'opacity-50 grayscale' : 'sm:group-hover:scale-105'}" loading="lazy" />
                     ${badgeHtml}
                 </div>
-                <div class="p-5 flex-1 flex flex-col justify-between">
+                
+                <!-- Detalles y Botones (a la derecha en celular, abajo en compu) -->
+                <div class="p-3 sm:p-5 flex-1 flex flex-col justify-between w-full min-w-0">
                     <div>
-                        <h4 class="font-sans text-sm font-semibold text-boda-navy line-clamp-2 mb-1" title="${gift.title}">
+                        <h4 class="font-sans text-[11px] sm:text-sm font-semibold text-boda-navy line-clamp-2 mb-1" title="${gift.title}">
                             ${gift.title}
                         </h4>
-                        <div class="flex justify-between items-end mb-3">
-                            <p class="font-serif text-xl font-bold text-boda-brown">${formatMoney(gift.price)}</p>
+                        <div class="flex justify-between items-end mb-2 sm:mb-3">
+                            <p class="font-serif text-sm sm:text-xl font-bold text-boda-brown">${formatMoney(gift.price)}</p>
                         </div>
                         
                         <!-- Progress Bar -->
-                        <div class="w-full bg-boda-beige/40 rounded-full h-2 mb-1 overflow-hidden">
-                            <div class="bg-boda-brown h-2 rounded-full transition-all duration-1000" style="width: ${percentage}%"></div>
+                        <div class="w-full bg-boda-beige/40 rounded-full h-1.5 sm:h-2 mb-1 overflow-hidden">
+                            <div class="bg-boda-brown h-1.5 sm:h-2 rounded-full transition-all duration-1000" style="width: ${percentage}%"></div>
                         </div>
-                        <p class="text-[10px] text-boda-navy/60 font-sans text-right uppercase tracking-wider mb-4">
+                        <p class="text-[9px] sm:text-[10px] text-boda-navy/60 font-sans text-right uppercase tracking-wider mb-2 sm:mb-4">
                             Faltan ${formatMoney(remaining)}
                         </p>
                     </div>
 
                     <!-- Actions -->
-                    <div class="flex flex-col gap-2">
+                    <div class="flex flex-col gap-1.5 sm:gap-2 mt-auto">
                         ${isCompleted ? 
-                            `<div class="w-full py-3 bg-emerald-50 text-emerald-600 rounded-xl font-sans text-xs font-bold tracking-widest uppercase text-center border border-emerald-200 shadow-sm flex items-center justify-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                Regalo Logrado
+                            `<div class="w-full py-1.5 sm:py-3 bg-emerald-50 text-emerald-600 rounded-lg sm:rounded-xl font-sans text-[10px] sm:text-xs font-bold tracking-widest uppercase text-center border border-emerald-200 shadow-sm flex items-center justify-center gap-1 sm:gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                Logrado
                             </div>` 
                             : 
-                            `<button class="btn-aportar w-full py-2.5 bg-white border border-boda-brown text-boda-brown rounded-xl font-sans text-xs font-bold tracking-widest uppercase hover:bg-boda-brown hover:text-white transition-colors shadow-sm" data-id="${gift.id}">
-                                Aportar Monto
+                            `<button class="btn-aportar w-full py-1.5 sm:py-2.5 bg-white border border-boda-brown text-boda-brown rounded-lg sm:rounded-xl font-sans text-[9px] sm:text-xs font-bold tracking-widest uppercase hover:bg-boda-brown hover:text-white transition-colors shadow-sm" data-id="${gift.id}">
+                                Aportar
                             </button>
-                            <button class="btn-regalar w-full py-2.5 bg-boda-brown text-white rounded-xl font-sans text-xs font-bold tracking-widest uppercase hover:bg-boda-navy transition-colors shadow-sm" data-id="${gift.id}">
+                            <button class="btn-regalar w-full py-1.5 sm:py-2.5 bg-boda-brown text-white rounded-lg sm:rounded-xl font-sans text-[9px] sm:text-xs font-bold tracking-widest uppercase hover:bg-boda-navy transition-colors shadow-sm" data-id="${gift.id}">
                                 Regalar Completo
                             </button>`
                         }
-                        <a href="${gift.url}" target="_blank" rel="noopener noreferrer" class="text-center text-[10px] font-sans text-boda-navy/50 hover:text-boda-brown transition-colors py-1 mt-1">
+                        <a href="${gift.url}" target="_blank" rel="noopener noreferrer" class="text-center text-[9px] sm:text-[10px] font-sans text-boda-navy/50 hover:text-boda-brown transition-colors py-1">
                             Ver producto original ↗
                         </a>
                     </div>
