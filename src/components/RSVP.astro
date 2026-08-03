@@ -57,11 +57,22 @@ import GiftsList from "./GiftsList.astro";
                 ></path>
             </svg>
             <h3 class="font-serif text-3xl text-boda-navy mb-4">Tarjeta</h3>
-            <p class="font-sans text-boda-navy mb-4">
-                Valor de la tarjeta: ARS $97.500 por persona.<br />
-                Válido hasta el 14 de diciembre.<br />
-                Luego hasta el 14 de febrero, el valor será de ARS $105.000 por persona.
-            </p>
+            <div class="font-sans text-boda-navy mb-6 max-w-md mx-auto space-y-4 text-left">
+                <div class="bg-white/70 p-4 rounded-xl border border-boda-brown/10 shadow-sm">
+                    <p class="font-semibold text-base md:text-lg text-boda-brown mb-2 border-b pb-1 border-boda-brown/10">Valores por persona (Adultos)</p>
+                    <p class="text-sm">▪ <strong>Hasta el 14 de diciembre:</strong> ARS $97.500</p>
+                    <p class="text-sm mt-1">▪ <strong>Hasta el 14 de febrero:</strong> ARS $105.000</p>
+                </div>
+                
+                <div class="bg-white/70 p-4 rounded-xl border border-boda-brown/10 shadow-sm">
+                    <p class="font-semibold text-base text-boda-brown mb-2 border-b pb-1 border-boda-brown/10">Menores de 13 años (60% del valor)</p>
+                    <p class="text-sm">▪ <strong>1er vencimiento:</strong> ARS $58.500</p>
+                    <p class="text-sm mt-1">▪ <strong>2do vencimiento:</strong> ARS $63.000</p>
+                    <div class="mt-3 text-center">
+                        <span class="text-xs text-emerald-800 font-bold bg-emerald-100/80 border border-emerald-200 py-1.5 px-3 rounded-full inline-block">Menores de 3 años no pagan</span>
+                    </div>
+                </div>
+            </div>
             <div
                 class="perspective-1000 mx-auto max-w-md mb-8 group"
                 id="bankCardContainer"
@@ -185,11 +196,18 @@ import GiftsList from "./GiftsList.astro";
             <h3 class="font-serif text-3xl text-boda-navy mb-4">
                 Lista de Regalos
             </h3>
-            <p class="font-sans text-boda-navy mb-8 text-sm max-w-md mx-auto">
+            <p class="font-sans text-boda-navy mb-6 text-sm max-w-md mx-auto">
                 Lo más importante para nosotros es compartir este día con vos.
-                Si querés hacernos un regalo, podés ver nuestra lista haciendo
-                clic abajo.
+                Si querés hacernos un regalo, podés ver nuestra lista y elegir el que más te guste o aportar el monto que prefieras. <strong class="text-boda-brown">El valor de cada regalo o aporte elegido se transfiere directamente a nuestro alias bancario.</strong>
             </p>
+            <div class="bg-white/80 border border-boda-brown/20 p-5 rounded-2xl max-w-md mx-auto mb-8 font-sans text-boda-navy text-xs text-left shadow-sm">
+                <p class="font-bold text-boda-brown text-sm mb-2 uppercase tracking-wide">¿Preferís transferir sin lista?</p>
+                <p class="mb-3 leading-relaxed text-boda-navy/80">Si preferís no optar por ningún ítem de la lista y querés regalarnos directamente por transferencia, ¡podés hacerlo con total libertad al siguiente alias! Todo nos ayuda a cumplir nuestros sueños.</p>
+                <div class="flex items-center justify-between bg-boda-beige/40 p-2.5 rounded-xl border border-boda-brown/10">
+                    <span class="text-sm"><strong>Alias:</strong> <code class="font-mono bg-white px-2 py-0.5 rounded text-boda-brown border border-boda-brown/10">casamiento.giu.ro</code></span>
+                    <button type="button" class="copy-text text-boda-brown hover:text-boda-navy font-semibold text-[11px] uppercase tracking-wide bg-white px-3 py-1 rounded shadow-sm border border-boda-brown/10 transition-colors" data-copy="casamiento.giu.ro">Copiar</button>
+                </div>
+            </div>
             <button
                 id="toggleGiftsBtn"
                 class="btn-magnetic inline-block px-10 py-4 bg-boda-brown text-white rounded-full font-sans text-sm tracking-widest hover:bg-boda-navy transition-colors shadow-md"
